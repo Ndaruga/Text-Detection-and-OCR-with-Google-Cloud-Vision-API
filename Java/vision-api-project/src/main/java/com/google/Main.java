@@ -38,17 +38,17 @@ public class Main {
         BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
         List<AnnotateImageResponse> responses = response.getResponsesList();
 
-        // for (AnnotateImageResponse res : responses) {
-        //     if (res.hasError()) {
-        //     System.out.format("Error: %s%n", res.getError().getMessage());
-        //     return;
-        //     }
-
-        //     for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
-        //     System.out.format(annotation.getDescription());
-        //     // System.out.format("Position : %s%n", annotation.getBoundingPoly());
-        //     }
-        // }
+        for (AnnotateImageResponse res : responses) {
+            if (res.hasError()) {
+            System.out.format("Error: %s%n", res.getError().getMessage());
+            return;
+            }
+             // Iterate through the text annotations to find "Full Names"
+            for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
+                String text = annotation.getDescription();
+                System.out.format(text);
+            }
+        }
         }
     }
 }
